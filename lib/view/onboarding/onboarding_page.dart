@@ -18,34 +18,30 @@ class OnboardingPage extends StatelessWidget {
         child: Align(
           child: Column(
             children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                  color: AppColors.iceWhite,
-                  child: Image.asset(
-                    AppImages.man,
-                  ),
-                ),
+                 SizedBox(
+                height: MediaQuery.of(context).size.height * 0.035,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Gastar de forma inteligente e economizar mais",
-                  style: AppTextStyle.mediumText
-                      .copyWith(color: AppColors.lightGreenTwo),
-                  textAlign: TextAlign.center,
-                ),
+              Image.asset(
+                AppImages.man,
+              ),  SizedBox(
+                height: MediaQuery.of(context).size.height * 0.025,
               ),
-              const SizedBox(
-                height: 16,
+              Text(
+                "Gastar de forma inteligente e economizar mais",
+                style: AppTextStyle.mediumText
+                    .copyWith(color: AppColors.lightGreenTwo),
+                textAlign: TextAlign.center,
+              ),
+             SizedBox(
+                height: MediaQuery.of(context).size.height * 0.025,
               ),
               ButtonLarge(
                   text: "Começar",
                   onPressed: () {
                     logger.i("Botão funcionando");
                   }),
-              const SizedBox(
-                height: 16,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.025  
               ),
               MultiTextButton(
                 onPressed: () {},
@@ -64,9 +60,7 @@ class OnboardingPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 50,
-              )
+             
             ],
           ),
         ),
