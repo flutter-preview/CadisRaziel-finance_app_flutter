@@ -18,7 +18,7 @@ class SplashPage extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "Finance",
+            "Finanças",
             style: AppTextStyle.bigText.copyWith(
               color: AppColors.white,
             ),
