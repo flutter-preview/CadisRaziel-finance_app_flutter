@@ -1,3 +1,4 @@
+import 'package:finance/view/onboarding/onboarding_page.dart';
 import 'package:finance/view/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,8 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashPage(),
+      // home: const SplashPage(),
+      home: const OnboardingPage(),
     );
   }
 }
