@@ -1,5 +1,5 @@
-import 'package:finance/core/shared/components/button_large.dart';
-import 'package:finance/core/shared/components/multi_text_button.dart';
+import 'package:finance/core/shared/components/button/button_large.dart';
+import 'package:finance/core/shared/components/textRich/multi_text_button.dart';
 import 'package:finance/core/shared/constants/app_colors.dart';
 import 'package:finance/core/shared/constants/app_images.dart';
 import 'package:finance/core/shared/constants/app_text_style.dart';
@@ -38,7 +38,7 @@ class OnboardingPage extends StatelessWidget {
               ButtonLarge(
                   text: "Começar",
                   onPressed: () {
-                    logger.i("Botão funcionando");
+                    logger.i("Botão onboarding page funcionando");
                   }),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.025  
@@ -49,7 +49,7 @@ class OnboardingPage extends StatelessWidget {
                   Text(
                     'Já tem uma conta? ',
                     style: AppTextStyle.smallText.copyWith(
-                      color: AppColors.grey,
+                      color: AppColors.darkGrey,
                     ),
                   ),
                   Text( 
