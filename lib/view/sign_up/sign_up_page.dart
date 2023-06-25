@@ -6,6 +6,8 @@ import 'package:finance/core/shared/constants/app_colors.dart';
 import 'package:finance/core/shared/constants/app_images.dart';
 import 'package:finance/core/shared/constants/app_text_style.dart';
 import 'package:finance/core/shared/utils/validator_text_field/validators.dart';
+import 'package:finance/view/sign_up/sign_up_controller.dart';
+import 'package:finance/view/sign_up/sign_up_state.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -20,6 +22,48 @@ class _SignUpPageState extends State<SignUpPage> {
   var logger = Logger();
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  final _controller = SignUpController();
+
+  @override
+  void initState() {
+    _controller.addListener(() {
+      // logger.i(_controller.state.toString());
+      if (_controller.state is SignUpLoadingState) {
+        showDialog(
+          context: context,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
+      if (_controller.state is SignUpSucessState) {
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => Scaffold(
+              body: Center(
+                child: Text("Sucesso"),
+              ),
+            ),
+          ),
+        );
+      }
+      if (_controller.state is SignUpErrorState) {
+        Navigator.of(context).pop();
+       showDialog(
+          context: context,
+          builder: (context) => Scaffold(body: Container(height: 150, child: Text("Erro ao logar"),))
+        );
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: "Confirmar senha*",
                   hintText: "Confirme sua senha",
                   textInputAction: TextInputAction.done,
-                  validator: (value) =>  Validators.validateConfirmPassword(
+                  validator: (value) => Validators.validateConfirmPassword(
                     _passwordController.text,
                     value,
                   ),
@@ -92,7 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 final valid = _formKey.currentState != null &&
                     _formKey.currentState!.validate();
                 if (valid) {
-                  logger.i("Botão de registrar pressionado validator OK");
+                  _controller.doSignUp();
                 } else {
                   logger.i("Botão de registrar pressionado validator ERRADO");
                 }
