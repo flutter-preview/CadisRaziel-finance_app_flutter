@@ -22,4 +22,7 @@ class AppTextStyle {
       TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "Inter");
   static const TextStyle inputHelperText =
       TextStyle(fontSize: 12, fontWeight: FontWeight.w400, fontFamily: "Inter", color: AppColors.lightGreenTwo);
+
+  static const TextStyle errorTextTryAgain =
+      TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: "Inter", color: AppColors.lightGreenTwo);
 }
