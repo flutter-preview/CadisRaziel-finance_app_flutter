@@ -3,7 +3,7 @@ import 'package:finance/core/shared/constants/app_colors.dart';
 import 'package:finance/core/shared/constants/app_text_style.dart';
 import 'package:flutter/material.dart';
 
-Future<void> customModalBottomSheet(BuildContext context) {
+Future<void> customModalBottomSheet(BuildContext context, {required String content}) {
  return showModalBottomSheet<void>(
     context: context,
     shape: const RoundedRectangleBorder(
@@ -28,7 +28,7 @@ Future<void> customModalBottomSheet(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Ops, algo deu errado!",
+                content,
                 style:
                     AppTextStyle.errorTextTryAgain.copyWith(color: AppColors.lightGreenOne),
               ),
