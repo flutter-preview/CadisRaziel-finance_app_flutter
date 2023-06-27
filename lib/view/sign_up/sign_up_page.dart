@@ -1,4 +1,6 @@
+import 'package:finance/core/shared/components/bottom_sheet/custom_modal_bottom_sheet.dart';
 import 'package:finance/core/shared/components/button/button_large.dart';
+import 'package:finance/core/shared/components/circular_progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:finance/core/shared/components/textFormField/custom_password_text_form_field.dart';
 import 'package:finance/core/shared/components/textFormField/custom_text_form_field.dart';
 import 'package:finance/core/shared/components/textRich/multi_text_button.dart';
@@ -31,9 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
       if (_controller.state is SignUpLoadingState) {
         showDialog(
           context: context,
-          builder: (context) => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          builder: (context) => const CustomCircularProgressIndicator(),
         );
       }
       if (_controller.state is SignUpSucessState) {
@@ -50,10 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
       }
       if (_controller.state is SignUpErrorState) {
         Navigator.of(context).pop();
-       showDialog(
-          context: context,
-          builder: (context) => Scaffold(body: Container(height: 150, child: Text("Erro ao logar"),))
-        );
+        customModalBottomSheet(context);
       }
     });
     super.initState();
