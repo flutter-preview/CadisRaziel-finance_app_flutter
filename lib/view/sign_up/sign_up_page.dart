@@ -8,6 +8,7 @@ import 'package:finance/core/shared/constants/app_colors.dart';
 import 'package:finance/core/shared/constants/app_images.dart';
 import 'package:finance/core/shared/constants/app_text_style.dart';
 import 'package:finance/core/shared/utils/validator_text_field/validators.dart';
+import 'package:finance/services/mock_auth_service_impl.dart';
 import 'package:finance/view/sign_up/sign_up_controller.dart';
 import 'package:finance/view/sign_up/sign_up_state.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,12 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   var logger = Logger();
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _controller = SignUpController();
+  final _controller = SignUpController(MockAuthServiceImpl()); //Aqui eu injeto a implementação da interface
+
+
 
   @override
   void initState() {
@@ -40,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => Scaffold(
+            builder: (context) => const Scaffold(
               body: Center(
                 child: Text("Sucesso"),
               ),
@@ -49,8 +54,9 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
       if (_controller.state is SignUpErrorState) {
+        final error = _controller.state as SignUpErrorState;
         Navigator.of(context).pop();
-        customModalBottomSheet(context);
+        customModalBottomSheet(context,content: error.message);
       }
     });
     super.initState();
@@ -58,6 +64,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -89,7 +97,8 @@ class _SignUpPageState extends State<SignUpPage> {
             key: _formKey,
             child: Column(
               children: [
-                const CustomTextFormField(
+                CustomTextFormField(
+                  controller: _nameController,
                   labelText: "Nome*",
                   hintText: "John Doe",
                   keyboardType: TextInputType.name,
@@ -97,7 +106,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   textInputAction: TextInputAction.done,
                   validator: Validators.validateName,
                 ),
-                const CustomTextFormField(
+                 CustomTextFormField(
+                  controller: _emailController,
                   labelText: "E-mail*",
                   hintText: "johndoe@email.com",
                   keyboardType: TextInputType.emailAddress,
@@ -133,7 +143,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 final valid = _formKey.currentState != null &&
                     _formKey.currentState!.validate();
                 if (valid) {
-                  _controller.doSignUp();
+                  _controller.signUp(
+                    name: _nameController.text,
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
                 } else {
                   logger.i("Botão de registrar pressionado validator ERRADO");
                 }
