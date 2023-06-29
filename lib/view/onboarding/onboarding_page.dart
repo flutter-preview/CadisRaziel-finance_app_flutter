@@ -3,6 +3,8 @@ import 'package:finance/core/shared/components/textRich/multi_text_button.dart';
 import 'package:finance/core/shared/constants/app_colors.dart';
 import 'package:finance/core/shared/constants/app_images.dart';
 import 'package:finance/core/shared/constants/app_text_style.dart';
+import 'package:finance/core/shared/routes/named_routes.dart';
+import 'package:finance/view/sign_up/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -38,13 +40,13 @@ class OnboardingPage extends StatelessWidget {
               ButtonLarge(
                   text: "Começar",
                   onPressed: () {
-                    logger.i("Botão onboarding page funcionando");
+                    Navigator.of(context).pushNamed(NamedRoute.signUp);
                   }),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.025  
               ),
               MultiTextButton(
-                onPressed: () {},
+             onPressed: () =>  Navigator.of(context).popAndPushNamed(NamedRoute.signIn),
                 children: [
                   Text(
                     'Já tem uma conta? ',
