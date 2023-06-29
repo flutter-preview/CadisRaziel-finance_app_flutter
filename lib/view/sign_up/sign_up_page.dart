@@ -7,8 +7,9 @@ import 'package:finance/core/shared/components/textRich/multi_text_button.dart';
 import 'package:finance/core/shared/constants/app_colors.dart';
 import 'package:finance/core/shared/constants/app_images.dart';
 import 'package:finance/core/shared/constants/app_text_style.dart';
+import 'package:finance/core/shared/routes/named_routes.dart';
 import 'package:finance/core/shared/utils/validator_text_field/validators.dart';
-import 'package:finance/services/mock_auth_service_impl.dart';
+import 'package:finance/locator.dart';
 import 'package:finance/view/sign_up/sign_up_controller.dart';
 import 'package:finance/view/sign_up/sign_up_state.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _controller = SignUpController(MockAuthServiceImpl()); //Aqui eu injeto a implementação da interface
+  final _controller = locator.get<SignUpController>(); // O locator é do getIt ele vai ser responsavel por ir atras do controller 
 
 
 
@@ -147,14 +148,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     name: _nameController.text,
                     email: _emailController.text,
                     password: _passwordController.text,
-                  );
+                  );                  
                 } else {
                   logger.i("Botão de registrar pressionado validator ERRADO");
                 }
               }),
           SizedBox(height: MediaQuery.of(context).size.height * 0.025),
           MultiTextButton(
-            onPressed: () {},
+            onPressed: () =>  Navigator.of(context).popAndPushNamed(NamedRoute.signIn),
             children: [
               Text(
                 'Já tem uma conta? ',
