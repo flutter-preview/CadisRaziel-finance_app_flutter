@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "479886451978",
+    "project_id": "finance-app-d2aee",
+    "storage_bucket": "finance-app-d2aee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479886451978:android:c03ecf996c162168dac6f3",
+        "android_client_info": {
+          "package_name": "br.com.vitufinance.finance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479886451978-5qrrm8upfqrkm134spk4o8mf9uf45dcp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP4wING0IrOtTx7-FOo7dqQwipVRZcMR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479886451978-5qrrm8upfqrkm134spk4o8mf9uf45dcp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "479886451978-0ggbk46l4clvn820d2r9kjlj5vo79fsj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.vitufinance.finance"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
