@@ -10,6 +10,7 @@ import 'package:finance/core/shared/constants/app_text_style.dart';
 import 'package:finance/core/shared/routes/named_routes.dart';
 import 'package:finance/core/shared/utils/validator_text_field/validators.dart';
 import 'package:finance/locator.dart';
+import 'package:finance/view/home/home_page.dart';
 import 'package:finance/view/sign_in/sign_in_controller.dart';
 import 'package:finance/view/sign_in/sign_in_state.dart';
 import 'package:flutter/material.dart';
@@ -42,15 +43,8 @@ class _SignInPageState extends State<SignInPage> {
       }
       if (_controller.state is SignInSucessState) {
         Navigator.of(context).pop();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const Scaffold(
-              body: Center(
-                child: Text("Nova tela !!"),
-              ),
-            ),
-          ),
-        );
+        //pushReplacementNamed -> quando avança para a proxima tela, ele não deixa voltar para a tela anterior
+        Navigator.of(context).pushReplacementNamed(NamedRoute.homePage);
       }
       if (_controller.state is SignInErrorState) {
         final error = _controller.state as SignInErrorState;

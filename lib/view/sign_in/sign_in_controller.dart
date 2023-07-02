@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:finance/services/secure_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:finance/services/auth_service.dart';
@@ -19,20 +20,28 @@ class SignInController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signIn({ required String email, required String password}) async {
+  Future<void> signIn({required String email, required String password}) async {
+    const secureStorage = SecureStorage();
     _changeState(SignInLoadingState());
     try {
-      await _authService.signIn(     
+      //logando com usuario
+      final user = await _authService.signIn(
         email: email,
         password: password,
       );
 
-      _changeState(SignInSucessState());
-
-    
+      //salvando usuario no secureStorage
+      if (user.id != null) {
+        await secureStorage.write(
+          key: "CURRENT_USER",
+          value: user.toJson(),
+        );
+        _changeState(SignInSucessState());
+      } else {
+        throw Exception();
+      }
     } catch (e) {
       _changeState(SignInErrorState(e.toString()));
-      
     }
   }
 }
