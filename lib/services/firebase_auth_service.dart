@@ -35,9 +35,10 @@ class FirebaseAuthService implements AuthService {
       if (result.user != null) {
         await result.user!.updateDisplayName(name);
         return UserModel(
-            name: result.user!.displayName,
-            email: result.user!.email,
-            id: result.user!.uid);
+          name: _auth.currentUser?.displayName,
+          email: _auth.currentUser?.email,
+          id: _auth.currentUser?.uid,
+        );
       } else {
         throw Exception();
       }
@@ -46,5 +47,15 @@ class FirebaseAuthService implements AuthService {
     } catch (e) {
       rethrow; // -> lançamento da exception do else acima
     }
+  }
+
+  @override
+  Future<void> signOut() async {
+   try {
+    //sair da conta
+     await _auth.signOut();
+   } catch (e) {
+      rethrow;
+   }
   }
 }
