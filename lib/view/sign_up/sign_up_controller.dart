@@ -1,4 +1,5 @@
 import 'package:finance/services/auth_service.dart';
+import 'package:finance/services/secure_storage.dart';
 import 'package:finance/view/sign_up/sign_up_state.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -15,21 +16,36 @@ class SignUpController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signUp({required String name, required String email, required String password}) async {
+  Future<void> signUp(
+      {required String name,
+      required String email,
+      required String password}) async {
+
+
+    const secureStorage = SecureStorage();
+
+
     _changeState(SignUpLoadingState());
     try {
-      await _authService.signUp(
+      //criando usuario
+      final user = await _authService.signUp(
         name: name,
         email: email,
         password: password,
       );
 
-      _changeState(SignUpSucessState());
-
-    
+      //salvando usuario no secureStorage
+      if (user.id != null) {
+        await secureStorage.write(
+          key: "CURRENT_USER",
+          value: user.toJson(),
+        );
+        _changeState(SignUpSucessState());
+      } else {
+        throw Exception();
+      }
     } catch (e) {
       _changeState(SignUpErrorState(e.toString()));
-      
     }
   }
 }

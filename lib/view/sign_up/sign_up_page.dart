@@ -44,15 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
       }
       if (_controller.state is SignUpSucessState) {
         Navigator.of(context).pop();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const Scaffold(
-              body: Center(
-                child: Text("Sucesso"),
-              ),
-            ),
-          ),
-        );
+        Navigator.of(context).pushReplacementNamed(NamedRoute.homePage);
       }
       if (_controller.state is SignUpErrorState) {
         final error = _controller.state as SignUpErrorState;
